@@ -1,19 +1,20 @@
-FROM node:18-alpine
-# Installing libvips-dev for sharp Compatibility
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
+# Use an official Node runtime as a parent image
+FROM node:latest
 
-WORKDIR /opt/
-COPY package.json package-lock.json ./
-RUN npm install -g node-gyp
-RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install --force
-ENV PATH /opt/node_modules/.bin:$PATH
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-WORKDIR /opt/app
+# Copy the current directory contents into the container at /usr/src/app
 COPY . .
-RUN chown -R node:node /opt/app
-USER node
-RUN ["npm", "run", "build"]
+
+# Install any needed packages specified in package.json
+RUN npm install
+
+# Make port 1337 available to the world outside this container
 EXPOSE 1337
-CMD ["npm", "run", "develop"]
+
+# Define environment variable
+ENV NODE_ENV=production
+
+# Run the app when the container launches
+CMD ["npm", "run","develop"]
