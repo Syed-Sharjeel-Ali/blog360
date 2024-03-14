@@ -9,4 +9,14 @@ module.exports = [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
+  
 ];
+
+module.exports={
+  settings: {
+    cors: {
+      enabled: true,
+      origin: ['https://360xpertsolutions.com/'],
+    },
+  },
+}

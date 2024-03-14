@@ -6,6 +6,8 @@ services:
     container_name: strapi
     ports:
       - "1337:1337"
+    volumes:
+      - strapi-data:/var/lib/strapi/data
     # environment:
     #   DATABASE_CLIENT: postgres
     #   DATABASE_NAME: postgres
@@ -14,7 +16,7 @@ services:
     #   DATABASE_USERNAME: postgres
     #   DATABASE_PASSWORD: postgres
     # depends_on:
-    #   - db
+    # #   - db
     networks:
       - app-network
 
@@ -40,9 +42,9 @@ services:
 #     networks:
 #       - app-network
 
-# networks:
-#   app-network:
-#     driver: bridge
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
-  postgres-data:
+  strapi-data:
