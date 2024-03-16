@@ -1,22 +1,35 @@
-module.exports = [
-  'strapi::logger',
-  'strapi::errors',
-  'strapi::security',
-  'strapi::cors',
-  'strapi::poweredBy',
-  'strapi::query',
-  'strapi::body',
-  'strapi::session',
-  'strapi::favicon',
-  'strapi::public',
+// module.exports = [
+//   'strapi::logger',
+//   'strapi::errors',
+//   'strapi::security',
+//   'strapi::cors',
+//   'strapi::poweredBy',
+//   'strapi::query',
+//   'strapi::body',
+//   'strapi::session',
+//   'strapi::favicon',
+//   'strapi::public',
   
-];
+// ];
 
-module.exports={
+module.exports = {
   settings: {
     cors: {
-      enabled: true,
-      origin: ['https://360xpertsolutions.com/'],
+      enabled: false, // Set to false to disable CORS
     },
   },
-}
+  // Preserving other middleware configuration
+  load: {
+    before: ['strapi::logger', 'strapi::errors', 'strapi::security'],
+    order: [
+      'strapi::cors', // Keep this in order if you want to apply other CORS settings
+      'strapi::poweredBy',
+      'strapi::query',
+      'strapi::body',
+      'strapi::session',
+      'strapi::favicon',
+      'strapi::public',
+    ],
+    after: [],
+  },
+};
