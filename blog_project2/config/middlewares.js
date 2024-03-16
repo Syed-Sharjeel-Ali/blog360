@@ -15,7 +15,8 @@
 module.exports = {
   settings: {
     cors: {
-      enabled: false, // Set to false to disable CORS
+      enabled: true, 
+
     },
   },
   // Preserving other middleware configuration
